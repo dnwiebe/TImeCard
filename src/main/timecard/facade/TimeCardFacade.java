@@ -1,12 +1,10 @@
 package timecard.facade;
 
-import timecard.Task;
-import timecard.TimeCard;
-import timecard.TimeCardTraverser;
-import timecard.Timespan;
+import timecard.*;
 import timecard.visitors.OverlapDetector;
 import timecard.visitors.TaskCollector;
 import timecard.visitors.TimeMapper;
+import timecard.visitors.Valuator;
 
 import java.util.Date;
 import java.util.Set;
@@ -33,14 +31,19 @@ public class TimeCardFacade {
     }
 
     public Set<Task> getTasks () {
-        TaskCollector collector = new TaskCollector ();
-        new TimeCardTraverser (timeCard).traverse (collector);
-        return collector.getTasks ();
+        return traverse (new TaskCollector ()).getTasks ();
     }
 
     public int getMinutesForTask (Task task) {
-        TimeMapper mapper = new TimeMapper ();
-        new TimeCardTraverser (timeCard).traverse (mapper);
-        return mapper.minutesOnTask (task);
+        return traverse (new TimeMapper ()).minutesOnTask (task);
+    }
+
+    public int getValue () {
+        return traverse (new Valuator ()).getValue ();
+    }
+
+    private <T extends Visitor<Timespan>> T traverse (T visitor) {
+        new TimeCardTraverser (timeCard).traverse (visitor);
+        return visitor;
     }
 }

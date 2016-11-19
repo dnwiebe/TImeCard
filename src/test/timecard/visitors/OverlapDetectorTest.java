@@ -56,7 +56,7 @@ public class OverlapDetectorTest {
 
     private Timespan makeHour (String beginString, String taskName) {
         try {
-            Task task = new Task (taskName, 1L);
+            Task task = new Task (taskName, 100);
             Date begin = SDF.parse (beginString);
             Date end = new Date (begin.getTime () + 3600000L);
             return new Timespan (begin, end, task);

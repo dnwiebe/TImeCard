@@ -13,18 +13,18 @@ public class TaskTest {
 
     @Test
     public void constructorAndAccessors () {
-        Task task = new Task ("name", 1234L);
+        Task task = new Task ("name", 100);
 
         assertEquals ("name", task.getName ());
-        assertEquals (1234L, task.getId ());
+        assertEquals (100, task.getHourlyRate ());
     }
 
     @Test
     public void equalsWorks () {
-        Task a = new Task ("name", 1234L);
-        Task b = new Task ("name", 1234L);
-        Task c = new Task ("mame", 1234L);
-        Task d = new Task ("name", 1235L);
+        Task a = new Task ("name", 100);
+        Task b = new Task ("name", 100);
+        Task c = new Task ("mame", 100);
+        Task d = new Task ("name", 101);
 
         assertFalse (a.equals (null));
         assertFalse (a.equals ("blah"));
@@ -36,10 +36,10 @@ public class TaskTest {
 
     @Test
     public void hashCodeWorks () {
-        Task a = new Task ("name", 1234L);
-        Task b = new Task ("name", 1234L);
-        Task c = new Task ("mame", 1234L);
-        Task d = new Task ("name", 1235L);
+        Task a = new Task ("name", 100);
+        Task b = new Task ("name", 100);
+        Task c = new Task ("mame", 100);
+        Task d = new Task ("name", 101);
 
         assertTrue (a.hashCode () == a.hashCode ());
         assertTrue (a.hashCode () == b.hashCode ());

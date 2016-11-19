@@ -17,8 +17,8 @@ public class TimeMapperTest {
 
     @Test
     public void mapsTimeAccordingToTask () throws Exception {
-        Task oneTask = new Task ("one", 12L);
-        Task anotherTask = new Task ("another", 13L);
+        Task oneTask = new Task ("one", 100);
+        Task anotherTask = new Task ("another", 200);
         TimeMapper subject = new TimeMapper ();
 
         subject.visit (new Timespan (SDF.parse ("10:00"), SDF.parse ("11:00"), oneTask));

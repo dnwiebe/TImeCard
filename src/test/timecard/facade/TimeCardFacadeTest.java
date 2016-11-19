@@ -20,7 +20,7 @@ public class TimeCardFacadeTest {
     @Test
     public void addingOverlappingTimespansThrowsException () throws Exception {
         TimeCardFacade subject = new TimeCardFacade ("Billy", 1234L);
-        Task task = new Task ("Sweeping the floor", 123L);
+        Task task = new Task ("Sweeping the floor", 100);
         subject.addTime (SDF.parse ("08:00"), 120, task);
 
         try {
@@ -63,5 +63,19 @@ public class TimeCardFacadeTest {
 
         assertEquals (180, oneTaskMinutes);
         assertEquals (45, anotherTaskMinutes);
+    }
+
+    @Test
+    public void canGetValueOfTimeCard () throws Exception {
+        TimeCardFacade subject = new TimeCardFacade ("Billy", 1234L);
+        Task sweeping = new Task ("Sweeping Floors", 5);
+        Task wardening = new Task ("Wardening", 5000);
+        subject.addTime (SDF.parse ("08:00"), 60 * 8, sweeping);
+        subject.addTime (SDF.parse ("10:00"), 60 * 2, wardening);
+        subject.addTime (SDF.parse ("2:00"), 60 * 2, wardening);
+
+        int result = subject.getValue ();
+
+        assertEquals (20040, result);
     }
 }
